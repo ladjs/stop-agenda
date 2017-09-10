@@ -10,9 +10,10 @@
   "contributors": [
     "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "agenda": "^1.0.0"
+  },
   "devDependencies": {
-    "agenda": "^1.0.0",
     "ava": "^0.22.0",
     "codecov": "^2.3.0",
     "cross-env": "^5.0.5",
