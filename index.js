@@ -4,7 +4,7 @@ const stopAgenda = (agenda, config = {}) => {
   if (!(agenda instanceof Agenda))
     throw new Error('`agenda` must be an instance of Agenda');
 
-  this.config = Object.assign(
+  config = Object.assign(
     {
       logger: console,
       cancelQuery: {
@@ -18,10 +18,10 @@ const stopAgenda = (agenda, config = {}) => {
     config
   );
 
-  if (typeof this.config.cancelQuery !== 'object')
+  if (typeof config.cancelQuery !== 'object')
     throw new Error('`config.cancelQuery` must be a MongoDB query object');
 
-  if (typeof this.config.checkIntervalMs !== 'number')
+  if (typeof config.checkIntervalMs !== 'number')
     throw new Error('`config.checkIntervalMs` must be a Number');
 
   // stop accepting new jobs
@@ -34,9 +34,9 @@ const stopAgenda = (agenda, config = {}) => {
       // <https://github.com/agenda/agenda/pull/501>
       if (!agenda._collection)
         return reject(new Error('collection did not exist, see agenda#501'));
-      agenda.cancel(this.config.cancelQuery, (err, numRemoved) => {
+      agenda.cancel(config.cancelQuery, (err, numRemoved) => {
         if (err) return reject(err);
-        this.config.logger.info(`cancelled ${numRemoved} jobs`);
+        config.logger.info(`cancelled ${numRemoved} jobs`);
         resolve();
       });
     }),
@@ -44,7 +44,7 @@ const stopAgenda = (agenda, config = {}) => {
       // check every X ms for jobs still running
       const jobInterval = setInterval(() => {
         if (agenda._runningJobs.length > 0) {
-          this.config.logger.info(
+          config.logger.info(
             `${agenda._runningJobs.length} jobs still running`
           );
         } else {
@@ -61,7 +61,7 @@ const stopAgenda = (agenda, config = {}) => {
             resolve();
           });
         }
-      }, this.config.checkIntervalMs);
+      }, config.checkIntervalMs);
     })
   ]);
 };
