@@ -7,7 +7,7 @@
 [![made with lass](https://img.shields.io/badge/made_with-lass-95CC28.svg)](https://lass.js.org)
 [![license](https://img.shields.io/github/license/ladjs/stop-agenda.svg)](<>)
 
-> Gracefully stops [Agenda][] and cancels jobs
+> Gracefully stop [Agenda][] and cancel recurring jobs
 
 
 ## Table of Contents

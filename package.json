@@ -1,6 +1,6 @@
 {
   "name": "stop-agenda",
-  "description": "Gracefully stops Agenda and cancels jobs",
+  "description": "Gracefully stop Agenda and cancel recurring jobs",
   "version": "0.0.1",
   "author": "Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com/)",
   "bugs": {
