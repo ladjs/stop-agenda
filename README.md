@@ -1,5 +1,7 @@
 # stop-agenda
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ladjs/stop-agenda.svg)](https://greenkeeper.io/)
+
 [![build status](https://img.shields.io/travis/ladjs/stop-agenda.svg)](https://travis-ci.org/ladjs/stop-agenda)
 [![code coverage](https://img.shields.io/codecov/c/github/ladjs/stop-agenda.svg)](https://codecov.io/gh/ladjs/stop-agenda)
 [![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
