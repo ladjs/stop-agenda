@@ -47,17 +47,15 @@ const agenda = new Agenda();
 stopAgenda(agenda).then().catch(console.error);
 ```
 
-> With advanced options including custom logger `logger`, cancel query `cancelQuery`, and check interval in milliseconds `checkIntervalMs`:
+> With advanced options including custom cancel query `cancelQuery` and check interval in milliseconds `checkIntervalMs`:
 
 ```js
 const stopAgenda = require('stop-agenda');
 const Agenda = require('agenda');
-const Logger = require('@ladjs/logger');
 
 const agenda = new Agenda();
 
 stopAgenda(agenda, {
-  logger: new Logger(),
   cancelQuery: {
     repeatInterval: {
       $exists: true,
@@ -78,7 +76,6 @@ stopAgenda(agenda, {
 
   ```js
   {
-    logger: console,
     cancelQuery: {
       repeatInterval: {
         $exists: true,

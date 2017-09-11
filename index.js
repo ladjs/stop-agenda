@@ -1,12 +1,11 @@
-const Agenda = require('agenda');
+const debug = require('debug')('stop-agenda');
 
 const stopAgenda = (agenda, config = {}) => {
-  if (!(agenda instanceof Agenda))
+  if (typeof agenda !== 'object')
     throw new Error('`agenda` must be an instance of Agenda');
 
   config = Object.assign(
     {
-      logger: console,
       cancelQuery: {
         repeatInterval: {
           $exists: true,
@@ -36,7 +35,7 @@ const stopAgenda = (agenda, config = {}) => {
         return reject(new Error('collection did not exist, see agenda#501'));
       agenda.cancel(config.cancelQuery, (err, numRemoved) => {
         if (err) return reject(err);
-        config.logger.info(`cancelled ${numRemoved} jobs`);
+        debug(`cancelled ${numRemoved} jobs`);
         resolve();
       });
     }),
@@ -44,9 +43,7 @@ const stopAgenda = (agenda, config = {}) => {
       // check every X ms for jobs still running
       const jobInterval = setInterval(() => {
         if (agenda._runningJobs.length > 0) {
-          config.logger.info(
-            `${agenda._runningJobs.length} jobs still running`
-          );
+          debug(`${agenda._runningJobs.length} jobs still running`);
         } else {
           clearInterval(jobInterval);
           // cancel recurring jobs so they get redefined on next server start
@@ -56,6 +53,7 @@ const stopAgenda = (agenda, config = {}) => {
             return reject(
               new Error('collection did not exist, see agenda#501')
             );
+          debug('attempting to run agenda.stop', agenda.stop);
           agenda.stop(err => {
             if (err) return reject(err);
             resolve();
