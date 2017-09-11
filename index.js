@@ -53,7 +53,7 @@ const stopAgenda = (agenda, config = {}) => {
             return reject(
               new Error('collection did not exist, see agenda#501')
             );
-          debug('attempting to run agenda.stop', agenda.stop);
+          debug('attempting to run agenda.stop');
           agenda.stop(err => {
             if (err) return reject(err);
             resolve();
