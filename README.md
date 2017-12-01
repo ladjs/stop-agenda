@@ -36,6 +36,8 @@ yarn add stop-agenda
 
 ## Usage
 
+You should probably be using [Lad's agenda][lad-agenda] directly instead of this package.
+
 > With default options:
 
 ```js
@@ -82,6 +84,7 @@ stopAgenda(agenda, {
         $ne: null
       }
     },
+    // (uses `process.env.STOP_AGENDA_CHECK_INTERVAL` if set)
     checkIntervalMs: 500
   }
   ```
@@ -106,3 +109,5 @@ stopAgenda(agenda, {
 [yarn]: https://yarnpkg.com/
 
 [agenda]: https://github.com/agenda/agenda
+
+[lad-agenda]: https://github.com/ladjs/agenda

@@ -12,7 +12,9 @@ const stopAgenda = (agenda, config = {}) => {
           $ne: null
         }
       },
-      checkIntervalMs: 500
+      checkIntervalMs: process.env.STOP_AGENDA_CHECK_INTERVAL
+        ? parseInt(process.env.STOP_AGENDA_CHECK_INTERVAL, 10)
+        : 500
     },
     config
   );
@@ -28,11 +30,6 @@ const stopAgenda = (agenda, config = {}) => {
 
   return Promise.all([
     new Promise((resolve, reject) => {
-      // cancel recurring jobs so they get redefined on next server start
-      // TODO: once PR is accepted we can take this out
-      // <https://github.com/agenda/agenda/pull/501>
-      if (!agenda._collection)
-        return reject(new Error('collection did not exist, see agenda#501'));
       agenda.cancel(config.cancelQuery, (err, numRemoved) => {
         if (err) return reject(err);
         debug(`cancelled ${numRemoved} jobs`);
@@ -47,12 +44,6 @@ const stopAgenda = (agenda, config = {}) => {
         } else {
           clearInterval(jobInterval);
           // cancel recurring jobs so they get redefined on next server start
-          // TODO: once PR is accepted we can take this out
-          // <https://github.com/agenda/agenda/pull/501>
-          if (!agenda._collection)
-            return reject(
-              new Error('collection did not exist, see agenda#501')
-            );
           debug('attempting to run agenda.stop');
           agenda.stop(err => {
             if (err) return reject(err);
